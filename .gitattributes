@@ -1,0 +1,21 @@
+# Auto-detect text files and normalize line endings to LF in repository
+* text=auto eol=lf
+
+# Explicit text file formats
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.svg text eol=lf
+*.py text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Explicit binary file formats
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary

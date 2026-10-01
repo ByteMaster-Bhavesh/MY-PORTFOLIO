@@ -1,0 +1,25 @@
+{
+  "name": "bhavesh-somwanshi-portfolio",
+  "version": "1.0.0",
+  "description": "Personal Portfolio of Bhavesh Sanjay Somwanshi — AI-Powered Full Stack Developer",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8080",
+    "start": "python -m http.server 8080",
+    "verify": "python scripts/verify_assets.py",
+    "build:splash": "python scripts/build_splash.py"
+  },
+  "keywords": [
+    "portfolio",
+    "developer",
+    "full-stack",
+    "ai",
+    "mern",
+    "webgl",
+    "css3",
+    "javascript"
+  ],
+  "author": "Bhavesh Sanjay Somwanshi <somwanshibhavesh71@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
