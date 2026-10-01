@@ -271,14 +271,16 @@ body.light-theme .ambient-glow {
 .gradient-text {
   background: var(--grad-primary);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
   display: inline-block;
 }
 
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border: 1px solid var(--border-glass);
   box-shadow: var(--card-shadow);
   border-radius: 18px;
@@ -435,6 +437,7 @@ body.light-theme .theme-toggle-track {
   background: var(--btn-sec-bg);
   color: var(--btn-sec-text);
   border: 1px solid var(--btn-sec-border);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -539,8 +542,8 @@ body.light-theme .theme-toggle-track {
   height: var(--nav-height);
   z-index: 1000;
   background: var(--bg-glass-nav);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-glass);
   transition: all var(--trans-base);
 }
@@ -586,7 +589,9 @@ body.light-theme .theme-toggle-track {
   letter-spacing: 0.08em;
   background: linear-gradient(90deg, var(--text-primary), var(--accent-indigo));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .brand-sub {
@@ -822,6 +827,7 @@ body.light-theme .theme-toggle-track {
   object-position: bottom right;
   display: block;
   user-select: none;
+  -webkit-user-select: none;
   -webkit-user-drag: none;
   filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.50));
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
@@ -2221,7 +2227,6 @@ body.dark-theme .form-status.success {
   /* Outlined stroke — transparent fill so fluid shows through */
   color: transparent;
   -webkit-text-stroke: 2px rgba(99, 102, 241, 0.75);
-  text-stroke: 2px rgba(99, 102, 241, 0.75);
   text-shadow:
     0 0 80px rgba(99, 102, 241, 0.15),
     0 0 160px rgba(168, 85, 247, 0.08);
@@ -2242,7 +2247,6 @@ body.light-theme .bhavex-slide {
 [data-theme="light"] .bhavex-slide-word,
 body.light-theme .bhavex-slide-word {
   -webkit-text-stroke: 2px rgba(79, 70, 229, 0.55);
-  text-stroke: 2px rgba(79, 70, 229, 0.55);
   text-shadow:
     0 0 60px rgba(79, 70, 229, 0.10),
     0 0 120px rgba(124, 58, 237, 0.06);
@@ -2380,6 +2384,7 @@ body.light-theme .bhavex-slide-word {
   height: 44px;
   border-radius: 12px;
   background: var(--bg-card);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-hover);
   color: var(--accent-indigo);
@@ -2497,6 +2502,7 @@ body.light-theme .bhavex-slide-word {
     left: 0;
     width: 100%;
     background: var(--bg-glass-nav);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-glass);
     padding: 2rem 1.5rem;

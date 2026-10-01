@@ -7,6 +7,7 @@
     "dev": "python -m http.server 8080",
     "start": "python -m http.server 8080",
     "verify": "python scripts/verify_assets.py",
+    "lint": "python scripts/lint_check.py",
     "build:splash": "python scripts/build_splash.py"
   },
   "keywords": [
