@@ -816,7 +816,7 @@ body.light-theme .theme-toggle-track {
 }
 
 .hero-avatar-img {
-  max-height: 540px;
+  max-height: 800px;
   width: auto;
   object-fit: contain;
   object-position: bottom right;
