@@ -32,6 +32,12 @@
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Specular Button Shader Effect -->
+  <link rel="stylesheet" href="assets/css/SpecularButton.css">
+  <!-- LogoLoop Ticker Component -->
+  <link rel="stylesheet" href="assets/css/LogoLoop.css">
+  <!-- FlexCarousel WebGL Chromatic Liquid Lens (React Bits) -->
+  <link rel="stylesheet" href="assets/css/FlexCarousel.css">
 </head>
 
 <body class="dark-theme" data-theme="dark">
@@ -90,6 +96,11 @@
           </span>
           <span class="theme-text" id="theme-status-text">Dark</span>
         </button>
+
+        <a href="minimal.html" class="minimal-view-link" title="Switch to Minimalist View" aria-label="Switch to Minimalist View">
+          <i class="fa-solid fa-cube"></i>
+          <span>Minimal</span>
+        </a>
 
         <a href="#contact" class="btn btn-glow-sm">
           <span>Let's Connect</span>
@@ -200,10 +211,7 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+
 
     <!-- ABOUT ME SECTION -->
     <section id="about" class="section about-section">
@@ -346,10 +354,7 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+
 
     <!-- EDUCATION SECTION -->
     <section id="education" class="section education-section">
@@ -415,10 +420,7 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+
 
     <!-- SKILLS SECTION -->
     <section id="skills" class="section skills-section">
@@ -707,10 +709,134 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+    <!-- TECH ECOSYSTEM CONTINUOUS LOGO LOOP (React Bits LogoLoop) -->
+    <section class="logoloop-section" aria-label="Technology Stack Loop">
+      <div class="logoloop-header">
+        <span class="logoloop-sub">TECH STACK ECOSYSTEM</span>
+        <h3 class="logoloop-title">Technologies &amp; Frameworks in Continuous Motion</h3>
+      </div>
+
+      <div class="logoloop logoloop--horizontal logoloop--fade logoloop--scale-hover" id="skillsLogoLoop" role="region" aria-label="Core Technology Logos">
+        <div class="logoloop__track">
+          <ul class="logoloop__list" role="list">
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-react"><i class="fa-brands fa-react"></i></span>
+                  <span>React.js</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-node"><i class="fa-brands fa-node-js"></i></span>
+                  <span>Node.js</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-python"><i class="fa-brands fa-python"></i></span>
+                  <span>Python</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-js"><i class="fa-brands fa-js"></i></span>
+                  <span>JavaScript ES6+</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-ts"><i class="fa-solid fa-code"></i></span>
+                  <span>TypeScript</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-express"><i class="fa-solid fa-server"></i></span>
+                  <span>Express.js</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-mongo"><i class="fa-solid fa-leaf"></i></span>
+                  <span>MongoDB</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-aws"><i class="fa-brands fa-aws"></i></span>
+                  <span>AWS Cloud</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-ai"><i class="fa-solid fa-microchip"></i></span>
+                  <span>AI Agents</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-docker"><i class="fa-brands fa-docker"></i></span>
+                  <span>Docker</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-postman"><i class="fa-solid fa-paper-plane"></i></span>
+                  <span>Postman API</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-git"><i class="fa-brands fa-github"></i></span>
+                  <span>Git &amp; GitHub</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-sql"><i class="fa-solid fa-database"></i></span>
+                  <span>SQL &amp; DBMS</span>
+                </div>
+              </span>
+            </li>
+            <li class="logoloop__item" role="listitem">
+              <span class="logoloop__node">
+                <div class="tech-pill-badge">
+                  <span class="tech-pill-icon icon-html"><i class="fa-brands fa-html5"></i></span>
+                  <span>HTML5 / CSS3</span>
+                </div>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
 
     <!-- WORK EXPERIENCE SECTION -->
     <section id="experience" class="section experience-section">
@@ -803,10 +929,7 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+
 
     <!-- SERVICES SECTION (With Reference-Inspired Process Steps) -->
     <section id="services" class="section services-section">
@@ -912,6 +1035,36 @@
             <h3 class="process-title">A proven process that turns ideas into impactful digital experiences.</h3>
           </div>
 
+          <!-- WebGL Chromatic Liquid Lens Refraction Carousel (React Bits FlexCarousel) -->
+          <div class="flex-carousel" id="processFlexCarousel" role="region" aria-roledescription="carousel"
+            aria-label="Process Methodology Liquid Carousel" tabindex="0">
+            <div class="flex-carousel__caption" aria-hidden="true">
+              <div class="flex-carousel__title-wrap">
+                <span class="flex-carousel__title">01. Discover &amp; Requirements</span>
+                <span class="flex-carousel__subtitle">EXECUTION METHODOLOGY</span>
+              </div>
+              <span class="flex-carousel__count">
+                <span class="flex-carousel__digits">
+                  <span class="flex-carousel__digit">
+                    <span class="flex-carousel__reel" style="transform: translateY(-0%);">
+                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                    </span>
+                  </span>
+                  <span class="flex-carousel__digit">
+                    <span class="flex-carousel__reel" style="transform: translateY(-10%);">
+                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                    </span>
+                  </span>
+                </span>
+                <span class="flex-carousel__slash">/</span>
+                <span class="flex-carousel__total">06</span>
+              </span>
+            </div>
+            <div class="flex-carousel__live" aria-live="polite" aria-atomic="true">
+              01. Discover &amp; Requirements, 1 of 6
+            </div>
+          </div>
+
           <div class="process-stepped-grid">
             <div class="process-step-card glass-panel" data-tilt>
               <div class="step-num-badge">01. Discover</div>
@@ -942,10 +1095,7 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+
 
     <!-- PROJECTS SECTION: Coming Soon & Lab Focus -->
     <section id="projects" class="section projects-section">
@@ -1057,10 +1207,7 @@
       </div>
     </section>
 
-    <!-- SECTION DIVIDER -->
-    <div class="section-divider-line">
-      <div class="divider-node"></div>
-    </div>
+
 
     <!-- CONTACT SECTION -->
     <section id="contact" class="section contact-section">
@@ -1225,7 +1372,14 @@
     <!-- ░░ BhaveX Full-Screen Slide — WebGL Fluid ░░ -->
     <div class="bhavex-slide" id="bhavexSlide">
       <canvas id="bhavex-fluid" class="bhavex-canvas"></canvas>
-      <span class="bhavex-slide-word" aria-label="BhaveX">BhaveX</span>
+      <div class="bhavex-slide-word" aria-label="BhaveX">
+        <span class="bhavex-char" data-char="B">B</span>
+        <span class="bhavex-char" data-char="H">H</span>
+        <span class="bhavex-char" data-char="A">A</span>
+        <span class="bhavex-char" data-char="V">V</span>
+        <span class="bhavex-char" data-char="E">E</span>
+        <span class="bhavex-char" data-char="X">X</span>
+      </div>
     </div>
 
     <div class="container footer-container">
@@ -1259,6 +1413,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="minimal.html" style="color: var(--accent-cyan);"><i class="fa-solid fa-cube"></i> Minimalist View</a></li>
           </ul>
         </div>
 
@@ -1303,8 +1458,14 @@
 
   <!-- Main Logic & Interactive Scripts -->
   <script src="assets/js/script.js"></script>
+  <!-- SpecularButton WebGL Shader (React Bits Shader Component) -->
+  <script src="assets/js/specular-button.js"></script>
+  <!-- LogoLoop Ticker Component (React Bits LogoLoop) -->
+  <script src="assets/js/logo-loop.js"></script>
   <!-- SplashCursor WebGL Fluid (BhaveX Slide) -->
   <script src="assets/js/splash-cursor.js"></script>
+  <!-- FlexCarousel WebGL Chromatic Liquid Lens (React Bits FlexCarousel) -->
+  <script type="module" src="assets/js/flex-carousel.js"></script>
 </body>
 
 </html>

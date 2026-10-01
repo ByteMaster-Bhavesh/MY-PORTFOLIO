@@ -464,25 +464,10 @@ body.light-theme .theme-toggle-track {
   transform: translateY(-1px);
 }
 
-/* --- Section Dividers --- */
-.section-divider-line {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 3.5rem auto;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border-glass), var(--border-hover), var(--border-glass), transparent);
-}
-
+/* --- Section Dividers (Removed) --- */
+.section-divider-line,
 .divider-node {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 9px;
-  height: 9px;
-  background: var(--accent-indigo);
-  box-shadow: 0 0 10px var(--accent-indigo);
+  display: none !important;
 }
 
 /* --- Section Headers --- */
@@ -544,14 +529,14 @@ body.light-theme .theme-toggle-track {
   background: var(--bg-glass-nav);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-glass);
+  border-bottom: none;
   transition: all var(--trans-base);
 }
 
 .site-header.scrolled {
   background: var(--bg-glass-nav);
   box-shadow: var(--card-shadow);
-  border-bottom-color: var(--border-hover);
+  border-bottom: none;
 }
 
 .nav-container {
@@ -562,6 +547,7 @@ body.light-theme .theme-toggle-track {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 }
 
 .nav-logo {
@@ -609,24 +595,25 @@ body.light-theme .theme-toggle-track {
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.7rem;
 }
 
 .nav-link {
-  font-size: 0.88rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-secondary);
-  padding: 0.5rem 0.85rem;
+  padding: 0.38rem 0.72rem;
   border-radius: 8px;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
+  white-space: nowrap;
   transition: all var(--trans-fast);
 }
 
 .nav-num {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--accent-indigo);
   opacity: 0.75;
 }
@@ -638,13 +625,34 @@ body.light-theme .theme-toggle-track {
 
 .nav-link.active {
   color: var(--accent-indigo);
-  border-bottom: 2px solid var(--accent-indigo);
+  border-bottom: none;
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 0.85rem;
+}
+
+.minimal-view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  transition: all var(--trans-fast);
+}
+
+.minimal-view-link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-cyan);
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
 }
 
 .mobile-toggle {
@@ -1600,6 +1608,7 @@ body.light-theme .filter-btn.jelly-chip.active {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .process-step-card {
@@ -1609,10 +1618,25 @@ body.light-theme .filter-btn.jelly-chip.active {
   position: relative;
   border-top: 2px solid var(--border-glass);
   transition: all var(--trans-base);
+  cursor: pointer;
 }
 
 .process-step-card:hover {
   border-top-color: var(--accent-indigo);
+  transform: translateY(-4px);
+}
+
+.process-step-card.active-step {
+  border-top-color: var(--accent-cyan, #00e5ff);
+  background: rgba(0, 229, 255, 0.05);
+  box-shadow: 0 12px 30px rgba(0, 229, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.process-step-card.active-step .step-num-badge {
+  border-color: rgba(0, 229, 255, 0.4);
+  color: var(--accent-cyan, #00e5ff);
+  background: rgba(0, 229, 255, 0.1);
 }
 
 .step-num-badge {
@@ -2203,6 +2227,7 @@ body.dark-theme .form-status.success {
   overflow: hidden;
   position: relative;
   cursor: crosshair; /* invite interaction */
+  isolation: isolate; /* Blendmix: isolate mix-blend-mode to slide canvas */
 }
 
 /* ── WebGL canvas fills the slide ── */
@@ -2216,7 +2241,7 @@ body.dark-theme .form-status.success {
   z-index: 0;
 }
 
-/* ── The word itself — floats above the fluid ── */
+/* ── The word itself — floats above the fluid with blendmix ── */
 .bhavex-slide-word {
   font-family: 'Outfit', 'Inter', sans-serif;
   font-size: clamp(5rem, 20vw, 18rem);
@@ -2224,18 +2249,70 @@ body.dark-theme .form-status.success {
   letter-spacing: -0.03em;
   text-transform: uppercase;
   line-height: 1;
-  /* Outlined stroke — transparent fill so fluid shows through */
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(99, 102, 241, 0.75);
-  text-shadow:
-    0 0 80px rgba(99, 102, 241, 0.15),
-    0 0 160px rgba(168, 85, 247, 0.08);
-  cursor: default;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   user-select: none;
   position: relative;
   z-index: 2; /* above canvas */
-  /* Pointer events off so mouse still reaches slide for fluid */
-  pointer-events: none;
+  pointer-events: none; /* Let fluid background catch events, child chars catch hover */
+  mix-blend-mode: screen; /* Blendmix with WebGL fluid layer */
+}
+
+/* ── Individual characters: HIDDEN initially, only visible on hover / visited ── */
+.bhavex-char {
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(99, 102, 241, 0.75);
+  text-shadow:
+    0 0 35px rgba(99, 102, 241, 0.35),
+    0 0 80px rgba(168, 85, 247, 0.15);
+  /* Hidden by default as requested: "hide BhaveX font" */
+  opacity: 0;
+  transform: translateY(0) scale(0.97);
+  filter: blur(6px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-text-stroke 0.35s ease,
+    text-shadow 0.35s ease;
+  pointer-events: auto; /* Active hover detection on each character */
+  cursor: crosshair;
+  padding: 0.05em 0.02em;
+  position: relative;
+  mix-blend-mode: screen; /* Blendmix per-character glow */
+}
+
+/* Character Hover State: Lights up with vibrant electric cyan & purple neon glow */
+.bhavex-char:hover,
+.bhavex-char.is-hovered {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(-5px) scale(1.04);
+  -webkit-text-stroke: 2.5px rgba(0, 229, 255, 0.95);
+  text-shadow:
+    0 0 25px rgba(0, 229, 255, 0.9),
+    0 0 60px rgba(99, 102, 241, 0.75),
+    0 0 120px rgba(168, 85, 247, 0.5);
+  transition:
+    opacity 0.12s ease-out,
+    filter 0.15s ease-out,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-text-stroke 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+/* Visited / Discovered State: Stays revealed with sleek aesthetic */
+.bhavex-char.is-visited {
+  opacity: 0.9;
+  filter: blur(0);
+  -webkit-text-stroke: 2px rgba(99, 102, 241, 0.85);
+  text-shadow:
+    0 0 35px rgba(99, 102, 241, 0.35),
+    0 0 80px rgba(168, 85, 247, 0.2);
 }
 
 /* ── Light-theme overrides ── */
@@ -2246,10 +2323,26 @@ body.light-theme .bhavex-slide {
 
 [data-theme="light"] .bhavex-slide-word,
 body.light-theme .bhavex-slide-word {
+  mix-blend-mode: multiply;
+}
+
+[data-theme="light"] .bhavex-char,
+body.light-theme .bhavex-char {
+  mix-blend-mode: multiply;
   -webkit-text-stroke: 2px rgba(79, 70, 229, 0.55);
   text-shadow:
-    0 0 60px rgba(79, 70, 229, 0.10),
-    0 0 120px rgba(124, 58, 237, 0.06);
+    0 0 40px rgba(79, 70, 229, 0.15),
+    0 0 80px rgba(124, 58, 237, 0.08);
+}
+
+[data-theme="light"] .bhavex-char:hover,
+body.light-theme .bhavex-char:hover,
+[data-theme="light"] .bhavex-char.is-hovered,
+body.light-theme .bhavex-char.is-hovered {
+  -webkit-text-stroke: 2.5px rgba(14, 165, 233, 0.95);
+  text-shadow:
+    0 0 25px rgba(14, 165, 233, 0.7),
+    0 0 50px rgba(79, 70, 229, 0.5);
 }
 
 /* ==========================================================================

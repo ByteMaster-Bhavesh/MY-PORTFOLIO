@@ -1,0 +1,159 @@
+/* ==========================================================================
+   SPECULAR BUTTON STYLESHEET
+   SDF Shader-Driven Specular Rim Light Buttons (React Bits SpecularButton)
+   ========================================================================== */
+
+:root {
+  --sb-radius: 10px;
+  --sb-tint: transparent;
+  --sb-tint-opacity: 0;
+  --sb-blur: 0px;
+  --sb-text-color: #f5f5f5;
+  --sb-line-color: #ffffff;
+  --sb-base-color: #525252;
+}
+
+.specular-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sb-radius, 10px);
+  background: var(--sb-tint, transparent);
+  color: var(--sb-text-color, inherit);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  isolation: isolate;
+  overflow: visible;
+  transition: color var(--trans-fast, 0.2s), background var(--trans-fast, 0.2s);
+}
+
+.specular-button__fx {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.specular-button__fx canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  display: block;
+}
+
+.specular-button__label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Specific styling for Navbar Links with Specular effect */
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Clean, visible gap between buttons */
+}
+
+.nav-link.specular-button {
+  padding: 0.38rem 0.72rem; /* Small compact sleek button */
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary, #cbd5e1);
+  background: transparent;
+  border-bottom: none !important;
+  white-space: nowrap;
+}
+
+.nav-link.specular-button:hover {
+  color: var(--text-primary, #f8fafc);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nav-link.specular-button.active {
+  color: var(--accent-indigo, #818cf8);
+  background: rgba(99, 102, 241, 0.1);
+  border-bottom: none !important;
+}
+
+body.light-theme .nav-link.specular-button {
+  color: #475569;
+}
+
+body.light-theme .nav-link.specular-button:hover {
+  color: #0f172a;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .nav-link.specular-button.active {
+  color: #4f46e5;
+  background: rgba(99, 102, 241, 0.12);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN FOR SPECULAR NAVIGATION BUTTONS
+   ========================================================================== */
+@media (max-width: 1250px) {
+  .nav-list {
+    gap: 0.5rem;
+  }
+
+  .nav-link.specular-button {
+    padding: 0.35rem 0.62rem;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .nav-list {
+    gap: 0.4rem;
+  }
+
+  .nav-link.specular-button {
+    padding: 0.32rem 0.54rem;
+    font-size: 0.76rem;
+  }
+
+  /* Hide number index (01, 02) on tighter viewports to keep buttons compact */
+  .nav-link.specular-button .nav-num {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.65rem;
+  }
+
+  .nav-link.specular-button {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    justify-content: flex-start;
+  }
+
+  .nav-link.specular-button .nav-num {
+    display: inline-block;
+    margin-right: 0.35rem;
+    font-size: 0.72rem;
+  }
+}

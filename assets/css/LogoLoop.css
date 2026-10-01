@@ -1,0 +1,296 @@
+/* ==========================================================================
+   LOGO LOOP COMPONENT CSS (Official React Bits Specification)
+   ========================================================================== */
+
+.logoloop {
+  position: relative;
+
+  --logoloop-gap: 32px;
+  --logoloop-logoHeight: 28px;
+  --logoloop-fadeColorAuto: #ffffff;
+}
+
+.logoloop--vertical {
+  height: 100%;
+  display: inline-block;
+}
+
+.logoloop--scale-hover {
+  padding-top: calc(var(--logoloop-logoHeight) * 0.1);
+  padding-bottom: calc(var(--logoloop-logoHeight) * 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .logoloop {
+    --logoloop-fadeColorAuto: #0a0b10;
+  }
+}
+
+[data-theme="dark"] .logoloop,
+body.dark-theme .logoloop {
+  --logoloop-fadeColorAuto: #0a0b10;
+}
+
+[data-theme="light"] .logoloop,
+body.light-theme .logoloop {
+  --logoloop-fadeColorAuto: #f8fafc;
+}
+
+.logoloop__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+  position: relative;
+  z-index: 0;
+}
+
+.logoloop--vertical .logoloop__track {
+  flex-direction: column;
+  height: max-content;
+  width: 100%;
+}
+
+.logoloop__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logoloop--vertical .logoloop__list {
+  flex-direction: column;
+}
+
+.logoloop__item {
+  flex: 0 0 auto;
+  margin-right: var(--logoloop-gap);
+  font-size: var(--logoloop-logoHeight);
+  line-height: 1;
+}
+
+.logoloop--vertical .logoloop__item {
+  margin-right: 0;
+  margin-bottom: var(--logoloop-gap);
+}
+
+.logoloop__item:last-child {
+  margin-right: var(--logoloop-gap);
+}
+
+.logoloop--vertical .logoloop__item:last-child {
+  margin-right: 0;
+  margin-bottom: var(--logoloop-gap);
+}
+
+.logoloop__node {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logoloop__item img {
+  height: var(--logoloop-logoHeight);
+  width: auto;
+  display: block;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoloop--scale-hover .logoloop__item {
+  overflow: visible;
+}
+
+.logoloop--scale-hover .logoloop__item:hover img,
+.logoloop--scale-hover .logoloop__item:hover .logoloop__node {
+  transform: scale(1.15);
+  transform-origin: center center;
+}
+
+.logoloop--scale-hover .logoloop__node {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoloop__link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+  color: inherit;
+}
+
+.logoloop__link:hover {
+  opacity: 0.9;
+}
+
+.logoloop__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.logoloop--fade::before,
+.logoloop--fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(24px, 10%, 140px);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.logoloop--fade::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.logoloop--fade::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.logoloop--vertical.logoloop--fade::before,
+.logoloop--vertical.logoloop--fade::after {
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: clamp(24px, 8%, 120px);
+}
+
+.logoloop--vertical.logoloop--fade::before {
+  top: 0;
+  bottom: auto;
+  background: linear-gradient(
+    to bottom,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.logoloop--vertical.logoloop--fade::after {
+  bottom: 0;
+  top: auto;
+  background: linear-gradient(
+    to top,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoloop__track {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  .logoloop__item img,
+  .logoloop__node {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   PORTFOLIO INTEGRATION STYLING FOR LOGOLOOP SECTION
+   ========================================================================== */
+.logoloop-section {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 0 3.5rem;
+  overflow: hidden;
+}
+
+.logoloop-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem;
+}
+
+.logoloop-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-indigo, #818cf8);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.logoloop-title {
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 700;
+  color: var(--text-primary, #f8fafc);
+  letter-spacing: -0.02em;
+}
+
+/* Tech badge styling inside .logoloop__node */
+.tech-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  background: var(--bg-card, rgba(18, 22, 33, 0.72));
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.08));
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+  color: var(--text-primary, #f8fafc);
+  font-family: var(--font-main, 'Outfit', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-pill-badge:hover {
+  border-color: var(--border-hover, rgba(99, 102, 241, 0.45));
+  background: var(--bg-card-hover, rgba(26, 32, 48, 0.88));
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.22);
+}
+
+.tech-pill-icon {
+  font-size: 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-react { color: #38bdf8; }
+.icon-node { color: #22c55e; }
+.icon-js { color: #facc15; }
+.icon-ts { color: #60a5fa; }
+.icon-python { color: #38bdf8; }
+.icon-mongo { color: #10b981; }
+.icon-express { color: #cbd5e1; }
+.icon-aws { color: #f97316; }
+.icon-docker { color: #38bdf8; }
+.icon-git { color: #f43f5e; }
+.icon-postman { color: #fb923c; }
+.icon-ai { color: #c084fc; }
+.icon-sql { color: #06b6d4; }
+.icon-html { color: #ea580c; }
+.icon-css { color: #3b82f6; }
+
+body.light-theme .tech-pill-badge {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  color: #0f172a;
+}
+
+body.light-theme .tech-pill-badge:hover {
+  background: #ffffff;
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.16);
+}

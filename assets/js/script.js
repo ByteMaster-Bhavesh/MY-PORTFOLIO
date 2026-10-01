@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 8. BACK TO TOP
   initBackToTop();
+
+  // 9. BHAVEX CHARACTER HOVER & VISITED INTERACTION
+  initBhaveXCharHover();
 });
 
 /* --------------------------------------------------------------------------
@@ -46,7 +49,7 @@ function initThemeToggle() {
   // Check stored preference or default to system preference
   const savedTheme = localStorage.getItem('portfolio-theme');
   const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
+
   // Default to dark theme if not specified
   let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'dark');
 
@@ -168,22 +171,22 @@ function initNavigation() {
    Spring: critically-damped second-order system driven on a rAF loop.
    -------------------------------------------------------------------------- */
 function initSkillsFilter() {
-  const group    = document.getElementById('skillsJellyRadio');
-  const chips    = group ? Array.from(group.querySelectorAll('.filter-btn.jelly-chip')) : [];
+  const group = document.getElementById('skillsJellyRadio');
+  const chips = group ? Array.from(group.querySelectorAll('.filter-btn.jelly-chip')) : [];
   const skillCards = document.querySelectorAll('.skill-category-card');
 
   if (!chips.length) return;
 
   /* ── Spring config (mirrors JellyRadio defaults) ── */
   const CFG = {
-    swell:     0.20,   // active chip scale-up
-    barge:     6,      // px push to neighbours
-    shrink:    0.05,   // inactive chip scale-down
-    jelly:     1.0,    // jelly asymmetry factor
-    bounce:    0.25,
-    stagger:   22,     // ms per neighbour step
+    swell: 0.20,   // active chip scale-up
+    barge: 6,      // px push to neighbours
+    shrink: 0.05,   // inactive chip scale-down
+    jelly: 1.0,    // jelly asymmetry factor
+    bounce: 0.25,
+    stagger: 22,     // ms per neighbour step
     stiffness: 580,
-    mass:      0.9,
+    mass: 0.9,
   };
 
   /* ── Spring math helpers ── */
@@ -209,20 +212,20 @@ function initSkillsFilter() {
 
   /* ── Per-chip spring state ── */
   const states = chips.map(() => ({
-    x:  makeSpring(0),   // lateral push
+    x: makeSpring(0),   // lateral push
     sx: makeSpring(1),   // scaleX
     sy: makeSpring(1),   // scaleY
   }));
 
   /* ── Base spring params ── */
-  const baseP  = springParams(CFG.stiffness,        CFG.mass, CFG.bounce);
+  const baseP = springParams(CFG.stiffness, CFG.mass, CFG.bounce);
   /* Jelly variants: scaleX is springier, scaleY is slower */
   const jellyX = springParams(CFG.stiffness * (1 + 0.24 * CFG.jelly), CFG.mass - 0.1 * CFG.jelly, Math.min(0.85, CFG.bounce + 0.3 * CFG.jelly));
   const jellyY = springParams(CFG.stiffness * (1 - 0.14 * CFG.jelly), CFG.mass + 0.05 * CFG.jelly, CFG.bounce);
 
-  let rafId      = null;
-  let lastTime   = null;
-  let activeIdx  = 0;
+  let rafId = null;
+  let lastTime = null;
+  let activeIdx = 0;
 
   /* ── Apply transform ── */
   function applyTransforms() {
@@ -236,11 +239,11 @@ function initSkillsFilter() {
   function loop(ts) {
     if (!lastTime) lastTime = ts;
     const dt = Math.min((ts - lastTime) / 1000, 0.05); // cap at 50 ms
-    lastTime  = ts;
+    lastTime = ts;
 
     let anyMoving = false;
     states.forEach(s => {
-      const mx = tickSpring(s.x,  dt, baseP);
+      const mx = tickSpring(s.x, dt, baseP);
       const msx = tickSpring(s.sx, dt, jellyX);
       const msy = tickSpring(s.sy, dt, jellyY);
       if (mx || msx || msy) anyMoving = true;
@@ -260,19 +263,19 @@ function initSkillsFilter() {
 
   /* ── Set spring targets for a given selection ── */
   function setTargets(sel, instant) {
-    const widths  = chips.map(c => c.offsetWidth);
-    const push    = (widths[sel] ?? 0) * CFG.swell / 2 + CFG.barge;
+    const widths = chips.map(c => c.offsetWidth);
+    const push = (widths[sel] ?? 0) * CFG.swell / 2 + CFG.barge;
 
     chips.forEach((_, i) => {
-      const s   = states[i];
-      const on  = i === sel;
+      const s = states[i];
+      const on = i === sel;
       const far = Math.abs(i - sel);
       const dir = Math.sign(i - sel);
-      const xT  = dir * push;
-      const sT  = on ? 1 + CFG.swell : 1 - CFG.shrink;
+      const xT = dir * push;
+      const sT = on ? 1 + CFG.swell : 1 - CFG.shrink;
 
       if (instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        s.x.pos  = xT; s.x.vel  = 0; s.x.target  = xT;
+        s.x.pos = xT; s.x.vel = 0; s.x.target = xT;
         s.sx.pos = sT; s.sx.vel = 0; s.sx.target = sT;
         s.sy.pos = sT; s.sy.vel = 0; s.sy.target = sT;
         return;
@@ -285,7 +288,7 @@ function initSkillsFilter() {
         else { spring.target = target; }
       }
 
-      setTarget(s.x,  xT);
+      setTarget(s.x, xT);
       setTarget(s.sx, sT);
       setTarget(s.sy, sT);
     });
@@ -332,10 +335,10 @@ function initSkillsFilter() {
 
     chip.addEventListener('keydown', e => {
       let next = null;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  next = (i + 1) % chips.length;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % chips.length;
       else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + chips.length) % chips.length;
-      else if (e.key === 'Home')  next = 0;
-      else if (e.key === 'End')   next = chips.length - 1;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = chips.length - 1;
       else if (e.key === ' ' || e.key === 'Enter') next = i;
       if (next === null) return;
       e.preventDefault();
@@ -543,3 +546,80 @@ function initBackToTop() {
     });
   });
 }
+
+/* --------------------------------------------------------------------------
+   9. BHAVEX SLIDE CHARACTER HOVER / VISITED INTERACTION WITH TIMEOUT
+   -------------------------------------------------------------------------- */
+function initBhaveXCharHover() {
+  const slide = document.getElementById('bhavexSlide');
+  const chars = document.querySelectorAll('.bhavex-char');
+  if (!slide || !chars.length) return;
+
+  const CHAR_TIMEOUT_MS = 2500; // Character dissolves after 2.5s of no hover
+  const charTimers = new Map();
+
+  function activateChar(char) {
+    char.classList.add('is-hovered', 'is-visited');
+
+    // Cancel existing timeout if re-hovered
+    if (charTimers.has(char)) {
+      clearTimeout(charTimers.get(char));
+      charTimers.delete(char);
+    }
+  }
+
+  function scheduleCharFade(char) {
+    if (charTimers.has(char)) {
+      clearTimeout(charTimers.get(char));
+    }
+
+    const timer = setTimeout(() => {
+      // If pointer is not actively over this character, dissolve it
+      if (!char.matches(':hover')) {
+        char.classList.remove('is-visited', 'is-hovered');
+      }
+      charTimers.delete(char);
+    }, CHAR_TIMEOUT_MS);
+
+    charTimers.set(char, timer);
+  }
+
+  chars.forEach((char) => {
+    char.addEventListener('mouseenter', () => {
+      activateChar(char);
+    });
+
+    char.addEventListener('mouseleave', () => {
+      char.classList.remove('is-hovered');
+      scheduleCharFade(char);
+    });
+
+    // Touch support for mobile devices
+    char.addEventListener('touchstart', () => {
+      activateChar(char);
+      scheduleCharFade(char);
+    }, { passive: true });
+  });
+
+  // When mouse leaves the slide, start fade timeout on any remaining visited characters
+  slide.addEventListener('mouseleave', () => {
+    chars.forEach((char) => {
+      scheduleCharFade(char);
+    });
+  });
+
+  // Idle timeout: if cursor stops moving inside the slide for 3.5s, dissolve visited characters
+  let idleTimer = null;
+  slide.addEventListener('mousemove', () => {
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      chars.forEach((char) => {
+        if (!char.matches(':hover')) {
+          char.classList.remove('is-visited', 'is-hovered');
+        }
+      });
+    }, 150);
+  }, { passive: true });
+}
+
+
