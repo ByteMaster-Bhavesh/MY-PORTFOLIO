@@ -150,7 +150,8 @@ js = """\
     DENSITY_DISSIPATION:3.5, VELOCITY_DISSIPATION:2,
     PRESSURE:0.1, PRESSURE_ITERATIONS:20,
     CURL:3, SPLAT_RADIUS:0.2, SPLAT_FORCE:6000,
-    SHADING:true, COLOR_UPDATE_SPEED:10
+    SHADING:true, COLOR_UPDATE_SPEED:10,
+    COLOR:'#52678e'
   };
 
   var params = { alpha:true, depth:false, stencil:false, antialias:false, preserveDrawingBuffer:false };
@@ -302,8 +303,26 @@ js = """\
   }
   function resizeCanvas(){ var w=px(canvas.clientWidth),h=px(canvas.clientHeight); if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;return true;}return false; }
 
-  function HSVtoRGB(h,s,v){ var i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s),m=[[v,t,p],[q,v,p],[p,v,t],[p,q,v],[t,p,v],[v,p,q]][i%6]; return {r:m[0],g:m[1],b:m[2]}; }
-  function genColor(){ var c=HSVtoRGB(Math.random(),1,1); c.r*=0.15; c.g*=0.15; c.b*=0.15; return c; }
+  function hexToRgb(hex) {
+    var m = /^#?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i.exec(hex);
+    return m ? {
+      r: parseInt(m[1], 16) / 255,
+      g: parseInt(m[2], 16) / 255,
+      b: parseInt(m[3], 16) / 255
+    } : { r: 82 / 255, g: 103 / 255, b: 142 / 255 };
+  }
+  var SPLASH_COLOR = hexToRgb((slide.dataset && slide.dataset.splashColor) || CFG.COLOR);
+
+  function genColor(intensity) {
+    var scale = (intensity !== undefined ? intensity : 0.32);
+    var jitter = 0.95 + Math.random() * 0.1;
+    var factor = scale * jitter;
+    return {
+      r: SPLASH_COLOR.r * factor,
+      g: SPLASH_COLOR.g * factor,
+      b: SPLASH_COLOR.b * factor
+    };
+  }
 
   var ptr = { texcoordX:0.5,texcoordY:0.5,prevTexcoordX:0.5,prevTexcoordY:0.5,deltaX:0,deltaY:0,moved:false,color:null };
   function getXY(cX,cY){ var r=canvas.getBoundingClientRect(); return {x:cX-r.left,y:cY-r.top}; }
@@ -353,7 +372,14 @@ js = """\
     step(dt); render();
     rafId=requestAnimationFrame(loop);
   }
+  function isDarkTheme() {
+    var dt = document.documentElement.getAttribute('data-theme');
+    if (dt) return dt === 'dark';
+    return document.body.classList.contains('dark-theme');
+  }
+
   function start() {
+    if (!isDarkTheme()) return;
     if (isActive) return; isActive=true;
     var w=px(canvas.clientWidth)||px(slide.clientWidth)||window.innerWidth;
     var h=px(canvas.clientHeight)||px(slide.clientHeight)||window.innerHeight;
@@ -364,7 +390,23 @@ js = """\
   }
   function stop(){ isActive=false; if(rafId){ cancelAnimationFrame(rafId); rafId=null; } }
 
+  function handleThemeChange() {
+    if (!isDarkTheme()) {
+      stop();
+    } else {
+      var rect = slide.getBoundingClientRect();
+      var inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) start();
+    }
+  }
+
+  window.addEventListener('themechange', handleThemeChange);
+  var themeObserver = new MutationObserver(handleThemeChange);
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
   slide.addEventListener('mousemove', function(e) {
+    if (!isDarkTheme()) return;
     var pos=getXY(e.clientX,e.clientY);
     ptr.prevTexcoordX=ptr.texcoordX; ptr.prevTexcoordY=ptr.texcoordY;
     ptr.texcoordX=pos.x/canvas.width; ptr.texcoordY=1-pos.y/canvas.height;
@@ -374,13 +416,15 @@ js = """\
   }, {passive:true});
 
   slide.addEventListener('mousedown', function(e) {
+    if (!isDarkTheme()) return;
     var pos=getXY(e.clientX,e.clientY);
     ptr.texcoordX=pos.x/canvas.width; ptr.texcoordY=1-pos.y/canvas.height;
-    var c=genColor(); c.r*=10; c.g*=10; c.b*=10;
+    var c=genColor(2.5);
     splat(ptr.texcoordX,ptr.texcoordY,10*(Math.random()-.5),30*(Math.random()-.5),c);
   }, {passive:true});
 
   slide.addEventListener('touchmove', function(e) {
+    if (!isDarkTheme()) return;
     e.preventDefault();
     var t=e.targetTouches[0], pos=getXY(t.clientX,t.clientY);
     ptr.prevTexcoordX=ptr.texcoordX; ptr.prevTexcoordY=ptr.texcoordY;
@@ -389,7 +433,13 @@ js = """\
     ptr.moved=true; if(!ptr.color) ptr.color=genColor();
   }, {passive:false});
 
-  var observer=new IntersectionObserver(function(entries){ entries[0].isIntersecting ? start() : stop(); }, {threshold:0.05});
+  var observer=new IntersectionObserver(function(entries){
+    if (entries[0].isIntersecting && isDarkTheme()) {
+      start();
+    } else {
+      stop();
+    }
+  }, {threshold:0.05});
   observer.observe(slide);
 
 })();

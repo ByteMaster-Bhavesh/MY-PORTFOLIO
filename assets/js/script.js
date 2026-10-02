@@ -60,6 +60,7 @@ function initThemeToggle() {
       statusText.textContent = theme === 'dark' ? 'Dark' : 'Light';
     }
     localStorage.setItem('portfolio-theme', theme);
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
   }
 
   // Initial apply
@@ -607,19 +608,4 @@ function initBhaveXCharHover() {
       scheduleCharFade(char);
     });
   });
-
-  // Idle timeout: if cursor stops moving inside the slide for 3.5s, dissolve visited characters
-  let idleTimer = null;
-  slide.addEventListener('mousemove', () => {
-    if (idleTimer) clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => {
-      chars.forEach((char) => {
-        if (!char.matches(':hover')) {
-          char.classList.remove('is-visited', 'is-hovered');
-        }
-      });
-    }, 150);
-  }, { passive: true });
 }
-
-

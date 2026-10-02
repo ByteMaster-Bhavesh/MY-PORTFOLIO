@@ -1,0 +1,104 @@
+/* ==========================================================================
+   HERO 3D SCROLL ROTATION
+   Styles for the scroll-driven head rotation rig in the hero section.
+   Works alongside styles.css. Integrates seamlessly with existing hero grid.
+   ========================================================================== */
+
+/* ── Outer 3D perspective stage (replaces hero-avatar-wrapper) ── */
+.head-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 3D perspective — makes rotateY() look realistic */
+  perspective: 900px;
+  perspective-origin: 50% 45%;
+  position: relative;
+}
+
+/* ── The rotation rig — both images stack inside ── */
+.head-rig {
+  position: relative;
+  /* Match portrait photo dimensions used in the original hero */
+  width: clamp(280px, 38vw, 500px);
+  aspect-ratio: 3 / 4;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Ambient glow halo — illuminates on scroll */
+.head-rig::before {
+  content: '';
+  position: absolute;
+  inset: -8% -12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(82, 103, 142, 0.38) 0%,
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Glow activates once scroll rotation begins */
+.head-rig.is-rotating::before { opacity: 1; }
+
+/* ── Shared image styles — they overlap each other exactly ── */
+.head-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  user-select: none;
+  pointer-events: none;
+  will-change: opacity, transform, filter;
+  /* Prevent aliasing on rotate */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Side profile — fully visible by default (initial state) */
+.head-img--side {
+  opacity: 1;
+  transform-origin: left center;
+}
+
+/* Front face — hidden by default, revealed by scroll */
+.head-img--front {
+  opacity: 0;
+  transform-origin: center center;
+}
+
+/* ── Responsive: hero section is typically a grid on desktop, stack on mobile ── */
+@media (max-width: 900px) {
+  .head-rig {
+    width: clamp(220px, 65vw, 380px);
+  }
+}
+
+@media (max-width: 600px) {
+  .head-stage {
+    perspective: 600px;
+  }
+  .head-rig {
+    width: clamp(200px, 80vw, 300px);
+  }
+}
+
+/* ── Light theme: still show front face (the rig is not hidden in light) ── */
+/* If the site is in light mode, just show the front image statically.      */
+[data-theme="light"] .head-img--side,
+body.light-theme .head-img--side {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+[data-theme="light"] .head-img--front,
+body.light-theme .head-img--front {
+  opacity: 1 !important;
+  transition: none !important;
+}

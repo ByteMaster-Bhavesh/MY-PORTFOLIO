@@ -36,11 +36,14 @@
   <link rel="stylesheet" href="assets/css/SpecularButton.css">
   <!-- LogoLoop Ticker Component -->
   <link rel="stylesheet" href="assets/css/LogoLoop.css">
-  <!-- FlexCarousel WebGL Chromatic Liquid Lens (React Bits) -->
-  <link rel="stylesheet" href="assets/css/FlexCarousel.css">
+  <!-- SideRays WebGL Volumetric Rays (Dark Theme Exclusive) -->
+  <link rel="stylesheet" href="assets/css/SideRays.css">
 </head>
 
 <body class="dark-theme" data-theme="dark">
+  <!-- Side Rays Atmospheric WebGL Rays (Dark Theme Exclusive) -->
+  <div id="side-rays-bg" class="side-rays-container side-rays-ambient side-rays-dark-only" aria-hidden="true"></div>
+
   <!-- Ambient Glow Background -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
@@ -1027,71 +1030,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Reference Image-Inspired Stepped Process (01 Discover, 02 Design & Plan, 03 Build & Integrate, 04 Launch & Optimize) -->
-        <div class="process-section-block">
-          <div class="process-intro">
-            <span class="sub-label-tag">EXECUTION METHODOLOGY</span>
-            <h3 class="process-title">A proven process that turns ideas into impactful digital experiences.</h3>
-          </div>
-
-          <!-- WebGL Chromatic Liquid Lens Refraction Carousel (React Bits FlexCarousel) -->
-          <div class="flex-carousel" id="processFlexCarousel" role="region" aria-roledescription="carousel"
-            aria-label="Process Methodology Liquid Carousel" tabindex="0">
-            <div class="flex-carousel__caption" aria-hidden="true">
-              <div class="flex-carousel__title-wrap">
-                <span class="flex-carousel__title">01. Discover &amp; Requirements</span>
-                <span class="flex-carousel__subtitle">EXECUTION METHODOLOGY</span>
-              </div>
-              <span class="flex-carousel__count">
-                <span class="flex-carousel__digits">
-                  <span class="flex-carousel__digit">
-                    <span class="flex-carousel__reel" style="transform: translateY(-0%);">
-                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-                    </span>
-                  </span>
-                  <span class="flex-carousel__digit">
-                    <span class="flex-carousel__reel" style="transform: translateY(-10%);">
-                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-                    </span>
-                  </span>
-                </span>
-                <span class="flex-carousel__slash">/</span>
-                <span class="flex-carousel__total">06</span>
-              </span>
-            </div>
-            <div class="flex-carousel__live" aria-live="polite" aria-atomic="true">
-              01. Discover &amp; Requirements, 1 of 6
-            </div>
-          </div>
-
-          <div class="process-stepped-grid">
-            <div class="process-step-card glass-panel" data-tilt>
-              <div class="step-num-badge">01. Discover</div>
-              <p>Understand engineering requirements, define data schemas, and identify strategic opportunities for AI
-                integration.</p>
-            </div>
-
-            <div class="process-step-card glass-panel" data-tilt>
-              <div class="step-num-badge">02. Design &amp; Plan</div>
-              <p>Create component hierarchies, wire up API contracts, and establish a clear technical roadmap for
-                development.</p>
-            </div>
-
-            <div class="process-step-card glass-panel" data-tilt>
-              <div class="step-num-badge">03. Build &amp; Integrate</div>
-              <p>Develop responsive React.js interfaces, implement Node/Express backends, and connect AI algorithms and
-                database pipelines.</p>
-            </div>
-
-            <div class="process-step-card glass-panel" data-tilt>
-              <div class="step-num-badge">04. Launch &amp; Optimize</div>
-              <p>Deploy application architecture, monitor performance, gather feedback, and continuously refine user
-                experience.</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -1464,8 +1402,8 @@
   <script src="assets/js/logo-loop.js"></script>
   <!-- SplashCursor WebGL Fluid (BhaveX Slide) -->
   <script src="assets/js/splash-cursor.js"></script>
-  <!-- FlexCarousel WebGL Chromatic Liquid Lens (React Bits FlexCarousel) -->
-  <script type="module" src="assets/js/flex-carousel.js"></script>
+  <!-- SideRays WebGL Volumetric Rays (Dark Theme Exclusive) -->
+  <script type="module" src="assets/js/side-rays.js"></script>
 </body>
 
 </html>

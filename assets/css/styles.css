@@ -2246,6 +2246,7 @@ body.dark-theme .form-status.success {
   font-family: 'Outfit', 'Inter', sans-serif;
   font-size: clamp(5rem, 20vw, 18rem);
   font-weight: 800;
+  text-shadow: transparent;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   line-height: 1;
@@ -2258,91 +2259,94 @@ body.dark-theme .form-status.success {
   position: relative;
   z-index: 2; /* above canvas */
   pointer-events: none; /* Let fluid background catch events, child chars catch hover */
-  mix-blend-mode: screen; /* Blendmix with WebGL fluid layer */
+  
 }
 
-/* ── Individual characters: HIDDEN initially, only visible on hover / visited ── */
+/* ── Individual characters: Black & White — always visible at 80% opacity ── */
 .bhavex-char {
   display: inline-block;
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(99, 102, 241, 0.75);
+
+  /* ── Black fill, white-gray stroke border — B&W default look ── */
+  color: #0d0d0d;
+  -webkit-text-stroke: 1.5px rgba(210, 210, 210, 0.85);
   text-shadow:
-    0 0 35px rgba(99, 102, 241, 0.35),
-    0 0 80px rgba(168, 85, 247, 0.15);
-  /* Hidden by default as requested: "hide BhaveX font" */
-  opacity: 0;
-  transform: translateY(0) scale(0.97);
-  filter: blur(6px);
+    0 1px 4px rgba(0, 0, 0, 0.5);
+
+  /* ── Visible at 80% by default ── */
+  opacity: 0.8;
+  transform: translateY(0) scale(1);
+  filter: none;
+
+  /* ── Smooth restore transition (from visited → default) ── */
   transition:
-    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.45s ease,
+    -webkit-text-stroke 0.45s ease,
+    text-shadow 0.4s ease,
     transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    -webkit-text-stroke 0.35s ease,
-    text-shadow 0.35s ease;
-  pointer-events: auto; /* Active hover detection on each character */
+    filter 0.5s ease;
+
+  pointer-events: auto;
   cursor: crosshair;
   padding: 0.05em 0.02em;
   position: relative;
-  mix-blend-mode: screen; /* Blendmix per-character glow */
+  mix-blend-mode: normal; /* solid B&W sits atop the fluid canvas */
 }
 
-/* Character Hover State: Lights up with vibrant electric cyan & purple neon glow */
+/* ── Hover State: char becomes a transparent window into the fluid ── */
 .bhavex-char:hover,
 .bhavex-char.is-hovered {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(-5px) scale(1.04);
-  -webkit-text-stroke: 2.5px rgba(0, 229, 255, 0.95);
-  text-shadow:
-    0 0 25px rgba(0, 229, 255, 0.9),
-    0 0 60px rgba(99, 102, 241, 0.75),
-    0 0 120px rgba(168, 85, 247, 0.5);
+  /* Fully transparent → WebGL fluid bleeds through the character shape */
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+  text-shadow: none;
+  opacity: 0;
+  transform: translateY(0) scale(1);
+  filter: none;
+
+  /* Fast fade-out on enter */
   transition:
-    opacity 0.12s ease-out,
-    filter 0.15s ease-out,
-    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-    -webkit-text-stroke 0.2s ease,
-    text-shadow 0.2s ease;
+    opacity 0.18s ease-out,
+    color 0.18s ease,
+    -webkit-text-stroke 0.18s ease,
+    text-shadow 0.18s ease;
 }
 
-/* Visited / Discovered State: Stays revealed with sleek aesthetic */
+/* ── Visited State: stays transparent while timer runs ── */
 .bhavex-char.is-visited {
-  opacity: 0.9;
-  filter: blur(0);
-  -webkit-text-stroke: 2px rgba(99, 102, 241, 0.85);
-  text-shadow:
-    0 0 35px rgba(99, 102, 241, 0.35),
-    0 0 80px rgba(168, 85, 247, 0.2);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+  text-shadow: none;
+  opacity: 0;
+  transform: translateY(0) scale(1);
+  filter: none;
 }
 
-/* ── Light-theme overrides ── */
+/* ── Light-theme overrides: Remove BhaveX slide, font div, and splash cursor strictly from light theme ── */
 [data-theme="light"] .bhavex-slide,
 body.light-theme .bhavex-slide {
-  background: var(--footer-bg);
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
 }
 
 [data-theme="light"] .bhavex-slide-word,
-body.light-theme .bhavex-slide-word {
-  mix-blend-mode: multiply;
-}
-
+body.light-theme .bhavex-slide-word,
 [data-theme="light"] .bhavex-char,
-body.light-theme .bhavex-char {
-  mix-blend-mode: multiply;
-  -webkit-text-stroke: 2px rgba(79, 70, 229, 0.55);
-  text-shadow:
-    0 0 40px rgba(79, 70, 229, 0.15),
-    0 0 80px rgba(124, 58, 237, 0.08);
-}
-
-[data-theme="light"] .bhavex-char:hover,
-body.light-theme .bhavex-char:hover,
-[data-theme="light"] .bhavex-char.is-hovered,
-body.light-theme .bhavex-char.is-hovered {
-  -webkit-text-stroke: 2.5px rgba(14, 165, 233, 0.95);
-  text-shadow:
-    0 0 25px rgba(14, 165, 233, 0.7),
-    0 0 50px rgba(79, 70, 229, 0.5);
+body.light-theme .bhavex-char,
+[data-theme="light"] #bhavex-fluid,
+body.light-theme #bhavex-fluid,
+[data-theme="light"] .bhavex-canvas,
+body.light-theme .bhavex-canvas {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* ==========================================================================

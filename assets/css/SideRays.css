@@ -1,0 +1,81 @@
+/* ==========================================================================
+   SIDE RAYS STYLESHEET
+   Atmospheric Volumetric Light Rays via WebGL (React Bits SideRays)
+   Engineered to render exclusively in the Dark Theme
+   ========================================================================== */
+
+:root {
+  --side-rays-opacity: 0.95;
+  --side-rays-blend-mode: screen;
+}
+
+.side-rays-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+/* Ambient Full-Viewport Background Configuration */
+.side-rays-container.side-rays-ambient,
+.side-rays-ambient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: opacity, transform;
+  mix-blend-mode: var(--side-rays-blend-mode);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
+}
+
+.side-rays-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  display: block;
+}
+
+/* ==========================================================================
+   DARK THEME ONLY VISIBILITY:
+   In Dark Theme: Luminous volumetric rays cast from top-right down the screen.
+   In Light Theme: Fully hidden and suppressed (zero opacity, visibility: hidden).
+   ========================================================================== */
+
+/* Dark mode active state */
+[data-theme="dark"] .side-rays-container,
+[data-theme="dark"] .side-rays-ambient,
+body.dark-theme .side-rays-container,
+body.dark-theme .side-rays-ambient,
+.side-rays-container:not(.side-rays-dark-only) {
+  opacity: var(--side-rays-opacity);
+  visibility: visible;
+}
+
+/* Light mode override: strictly hidden in light theme */
+[data-theme="light"] .side-rays-container,
+[data-theme="light"] .side-rays-ambient,
+[data-theme="light"] .side-rays-dark-only,
+body.light-theme .side-rays-container,
+body.light-theme .side-rays-ambient,
+body.light-theme .side-rays-dark-only {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Respect Accessibility & Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  .side-rays-container,
+  .side-rays-ambient {
+    opacity: 0.35 !important;
+  }
+}
